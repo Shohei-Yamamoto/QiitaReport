@@ -14,6 +14,9 @@ jobs:
 
       - name: Make Report Directory if needed
         run: mkdir -p Report
+      
+      - name: install jq
+        run: apt -y install jq
 
       - name: curl Qiita API
         run: |
