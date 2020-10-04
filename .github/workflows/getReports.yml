@@ -20,4 +20,8 @@ jobs:
           cd Report
           curl https://qiita.com/api/v2/items/cc28fc8a41b9932ecfb1/likes > test.txt
           cat test.txt
-          echo test, and deploy your project.
+          curl -sH 'Authorization: Bearer ${{ secrets.QIITA_ACCESS_TOKEN }}' \
+          "https://qiita.com//api/v2/authenticated_user/items?page=1&per_page=3" \
+          | jq -r ".[].id" \
+          | xargs -P 3 -I {id} curl -sH 'Authorization: Bearer ${{ secrets.QIITA_ACCESS_TOKEN }}' https://qiita.com/api/v2/items/{id} \
+          | jq '"\(.title), VIEW: \(.page_views_count),  LGTM: \(.likes_count)"'
