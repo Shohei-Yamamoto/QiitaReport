@@ -16,7 +16,7 @@ jobs:
         run: mkdir -p Report
       
       - name: install jq
-        run: apt -y install jq
+        run: jq --version
 
       - name: curl Qiita API
         run: |
