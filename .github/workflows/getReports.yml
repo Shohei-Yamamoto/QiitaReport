@@ -20,5 +20,5 @@ jobs:
           cd Report
           curl -sH 'Authorization: Bearer ${{ secrets.QIITA_ACCESS_TOKEN }}' "https://qiita.com//api/v2/authenticated_user/items?page=1&per_page=3" | jq -r -R  'fromjson? | .[].id' > IDS.txt
           cat IDS.txt
-          cat IDS.txt | xargs -P 3 -I {id} curl -sH 'Authorization: Bearer ${{ secrets.QIITA_ACCESS_TOKEN }}' "https://qiita.com/api/v2/items/{id}" | jq '"\(.title), VIEW: \(.page_views_count),  LGTM: \(.likes_count)"'
+          cat IDS.txt | xargs -I {id} curl -sH 'Authorization: Bearer ${{ secrets.QIITA_ACCESS_TOKEN }}' "https://qiita.com/api/v2/items/{id}" | jq '"\(.title), VIEW: \(.page_views_count),  LGTM: \(.likes_count)"'
           
